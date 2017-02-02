@@ -65,6 +65,9 @@ var adminView = {
    },
    render: function() {
      document.getElementById('adminForm').classList.remove('hideForm');
+     var adminCatName = document.getElementById('adminCatName');
+     var adminUrl = document.getElementById('adminUrl');
+     var adminCounter = document.getElementById('adminCounter');
    }
 };
 
