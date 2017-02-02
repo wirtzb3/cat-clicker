@@ -2,3 +2,7 @@ img {
   width: 45%;
   margin: auto;
 }
+
+.hideForm {
+  display: none;
+}
