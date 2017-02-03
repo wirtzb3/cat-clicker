@@ -53,6 +53,23 @@ var octopus = {
   incrementCounter: function() {
     model.currentCat.clickCount++;
     catView.render();
+  },
+
+  updateCatName: function(newName) {
+    model.currentCat.name = newName;
+    catView.render();
+    catListView.catListElem.innerHTML = '';
+    catListView.render();
+  },
+
+  updateCounter: function(newValue) {
+    model.currentCat.clickCount = newValue;
+    catView.render();
+  },
+
+  updateImgSrc: function(newImgSrc) {
+    model.currentCat.imgSrc = newImgSrc;
+    catView.render();
   }
 };
 
@@ -62,14 +79,46 @@ var adminView = {
      this.adminButton.addEventListener('click', function() {
        adminView.render();
      });
+
    },
    render: function() {
      document.getElementById('adminForm').classList.remove('hideForm');
-     var adminCatName = document.getElementById('adminCatName');
-     var adminUrl = document.getElementById('adminUrl');
-     var adminCounter = document.getElementById('adminCounter');
-   }
-};
+     this.cancelButton = document.getElementById('cancelButton');
+     this.cancelButton.addEventListener('click', function(e) {
+       e.preventDefault();
+       document.getElementById('adminForm').classList.add('hideForm');
+     });
+     document.getElementById('adminForm').addEventListener('submit', function(e) {
+       e.preventDefault();
+     if (e.target.adminCatName !== '') {
+       octopus.updateCatName(e.target.adminCatName.value);
+      //  e.target.adminCatName.value = '';
+     }
+     if (e.target.adminUrl.value !== '') {
+       octopus.updateImgSrc(e.target.adminUrl.value);
+       e.target.adminUrl.value = '';
+     }
+     if (e.target.adminCounter.value !== '') {
+       octopus.updateCounter(e.target.adminCounter.value);
+       e.target.adminCounter.value = '';
+     }
+     document.getElementById('adminForm').classList.add('hideForm');
+     })
+    }
+   };
+
+
+//how to setup the input fields to have them render if there is input in
+//either of the fields...how to make it set on cat...a second render function?
+//and an if/else statement to pick between the two? That won't work becuse it
+//needs to update and stay that way as it goes to a different cat...so set up a
+//whole new thing? how to do it?!
+// Pushes adminButton
+// adminForm becomes unhidden
+// Enter information into 1,2, or 3 of the fields
+// Press Save --> data changes name/url/counter on currently selected cat
+// Press Cancel --> disregards changes and hides adminForm
+
 
 var catView = {
 
